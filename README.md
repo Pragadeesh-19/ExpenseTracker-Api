@@ -1,51 +1,110 @@
-# Expense Tracker API
+# Expense Tracker Api Backend
 
 ## Overview
 
-The Expense Tracker API is a RESTful web service designed to help users manage their daily expenses. Users can register, authenticate using JWT tokens, and perform CRUD operations on their expenses. The API supports filtering expenses by date range and category.
+This is a RESTful API for an expense tracker application built with Spring Boot. This application uses Java, Spring Boot, Spring Security (with JWT authentication), PostgreSQL, and Spring data JPA for data persistence. The API allows users to manage their expenses, including adding, updating, and deleting expenses, as well as listing and filtering them based on various criteria.
+
 
 ## Features
-
 - **User Registration**: Sign up as a new user.
-- **JWT Authentication**: Secure access to the API using JSON Web Tokens.
+- **JWT Authentication**: Generate and validate JWT tokens for user authentication and session management.
 - **Expense Management**:
-  - Add new expenses.
-  - List all expenses.
-  - Filter expenses by category or date range.
-  - Update existing expenses.
-  - Delete expenses.
+  - List all expenses with filtering options:
+  - Add new expenses
+  - Remove existing expenses
+  - Update existing expenses
 
-## Technologies Used
+## Technologies
 
-- **Java 22**
-- **Spring Boot 3**
-- **Spring Security**
-- **JWT (JSON Web Token)**
-- **Spring Data JPA**
-- **PostgreSQL**
-- **Maven**
-
-## Prerequisites
-
-- JDK 17 or higher
-- Maven 3.6.3 or higher
-- PostgreSQL
-- Postman (for testing the API)
+- **Java**: Programming language used for backend development.
+- **Spring Boot**: Framework for building the RESTful API.
+- **Spring Security**: Provides security and JWT-based authentication.
+- **PostgreSQL**: Database for data storage.
+- **JPA**: Java Persistence API for database operations.
+- **Postman**: Tool used for API testing.
 
 ## Getting Started
 
-  ### 1. Clone the Repository
-    git clone https://github.com/yourusername/expense-tracker-api.git
-    cd expense-tracker-api
+### Prerequisites
 
-  ### 2. Configure Database
-    spring.datasource.url=jdbc:postgresql://localhost:5432/expensetracker
-    spring.datasource.username=your_db_username
-    spring.datasource.password=your_db_password
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-### 3. Build the project
+- Java 22
+- Maven
+- PostgreSQL
+- Postman
+
+### Installation
+
+1. **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/Pragadeesh-19/ExpenseTracker-Api.git
+    cd Expensetracker-Api
+    ```
+
+2. **Configure the Database:**
+
+    Create a PostgreSQL database and update the `application.properties` file with your database credentials:
+
+    ```properties
+    spring.datasource.url=jdbc:postgresql://localhost:5432/expenseTracker
+    spring.datasource.username=your-username
+    spring.datasource.password=your-password
+    ```
+
+3. **Build and Run the Application:**
+
+    Using Maven:
+
+    ```bash
     mvn clean install
-
-### 4. Run the application
     mvn spring-boot:run
+    ```
+
+### API Endpoints
+
+### User Authentication
+
+- **Register New User**
+  - `POST /register`
+  - Request Body: `User` object
+
+- **Login**
+  - `POST /login`
+  - Request Body: `User` object
+  - Response: JWT token in `JwtResponse`
+
+### Expense Management
+
+- **Add Expense**
+  - `POST /api/expenses`
+  - Request Body: `Expense` object
+  - Authenticated Request
+
+- **Get Expenses**
+  - `GET /api/expenses`
+  - Query Parameters:
+    - `category` (optional)
+    - `startDate` (optional, format: YYYY-MM-DD)
+    - `endDate` (optional, format: YYYY-MM-DD)
+  - Authenticated Request
+
+- **Update Expense**
+  - `PUT /api/expenses/{id}`
+  - Request Body: `Expense` object
+  - Path Variable: `id` of the expense to update
+  - Authenticated Request
+
+- **Delete Expense**
+  - `DELETE /api/expenses/{id}`
+  - Path Variable: `id` of the expense to delete
+  - Authenticated Request
+
+
+### Testing
+
+Use Postman to test the API endpoints.
+
+### Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any changes or enhancements.
+
